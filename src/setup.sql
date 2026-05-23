@@ -105,3 +105,68 @@ VALUES
  'Ho', '2026-05-23');
 
  SELECT * FROM project;
+
+
+-- ========================================
+-- Category Table
+-- ========================================
+ CREATE TABLE category (
+	category_id SERIAL PRIMARY KEY,
+	name VARCHAR(100) NOT NULL  UNIQUE
+ );
+
+
+-- ========================================
+-- Insert sample data: Category
+-- ========================================
+INSERT INTO category (name)
+VALUES
+('Environmental'),
+('Educational'),
+('Community Service'),
+('Health and Wellness');
+
+ SELECT * FROM category;
+
+-- ========================================
+-- Project Category Table
+-- ========================================
+ CREATE TABLE project_category (
+    project_id INT NOT NULL,
+    category_id INT NOT NULL,
+
+    PRIMARY KEY (project_id, category_id),
+
+    FOREIGN KEY (project_id)
+        REFERENCES project(project_id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (category_id)
+        REFERENCES category(category_id)
+        ON DELETE CASCADE
+);
+
+-- ========================================
+-- Insert sample data: Project Category
+-- ========================================
+INSERT INTO project_category (project_id, category_id)
+VALUES
+(1, 3),
+(2, 3),
+(3, 2),
+(4, 2),
+(5, 3),
+
+(6, 1),
+(7, 2),
+(8, 2),
+(9, 1),
+(10, 1),
+
+(11, 3),
+(12, 3),
+(13, 3),
+(14, 2),
+(15, 4);
+
+SELECT * FROM project_category;
