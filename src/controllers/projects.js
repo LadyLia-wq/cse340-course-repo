@@ -1,6 +1,9 @@
 import {
+    getAllProjects,
+    getProjectsByOrganizationId,
     getUpcomingProjects,
-    getProjectDetails
+    getProjectDetails,
+    getProjectCategories
 } from '../models/projects.js';
 
 // Constant for number of upcoming projects
@@ -22,11 +25,13 @@ const showProjectDetailsPage = async (req, res) => {
 
     // Retrieve project details from database
     const project = await getProjectDetails(id);
+    const categories = await getProjectCategories(id);
 
     // Render project details page
     res.render('project', {
         title: project.title,
-        project
+        project,
+        categories
     });
 };
 

@@ -19,6 +19,7 @@ VALUES
 ('GreenHarvest Growers', 'An urban farming collective promoting food sustainability and education in local neighborhoods.', 'contact@greenharvest.org', 'greenharvest-logo.png'),
 ('UnityServe Volunteers', 'A volunteer coordination group supporting local charities and service initiatives.', 'hello@unityserve.org', 'unityserve-logo.png');
 
+SELECT * FROM organization;
 
 -- ========================================
 -- Project Table
@@ -62,50 +63,49 @@ VALUES
  'Installing wheelchair-accessible ramps in public buildings.',
  'Kumasi', '2026-05-17'),
 
--- GreenHarvest Growers (organization_id = 2)
+-- Keep one GreenHarvest project with an old date
 (2, 'Community Garden Project',
  'Creating a shared vegetable garden for neighborhood residents.',
  'East Legon', '2026-01-25'),
 
+-- Future projects
 (2, 'Urban Farming Workshop',
  'Teaching sustainable farming techniques to community members.',
- 'Achimota', '2026-02-14'),
+ 'Achimota', '2026-08-14'),
 
 (2, 'School Vegetable Garden',
  'Helping students establish and maintain a school garden.',
- 'Takoradi', '2026-03-20'),
+ 'Takoradi', '2026-09-20'),
 
 (2, 'Tree Planting Campaign',
  'Planting trees to promote environmental sustainability.',
- 'Aburi', '2026-04-22'),
+ 'Aburi', '2026-10-22'),
 
 (2, 'Food Sustainability Fair',
  'Hosting an event focused on local food production and education.',
- 'Tamale', '2026-05-28'),
+ 'Tamale', '2026-11-28'),
 
--- UnityServe Volunteers (organization_id = 3)
 (3, 'Food Bank Distribution',
  'Organizing volunteers to distribute food packages to families.',
- 'Accra North', '2026-01-10'),
+ 'Accra North', '2026-12-10'),
 
 (3, 'Homeless Shelter Support',
  'Providing volunteer assistance at a local shelter.',
- 'Tema', '2026-02-18'),
+ 'Tema', '2027-01-18'),
 
 (3, 'Charity Fundraising Event',
  'Coordinating a fundraising event for local charities.',
- 'Kumasi', '2026-03-27'),
+ 'Kumasi', '2027-03-27'),
 
 (3, 'Youth Mentorship Program',
  'Connecting volunteers with youth for mentoring and tutoring.',
- 'Sunyani', '2026-04-15'),
+ 'Sunyani', '2027-05-15'),
 
 (3, 'Community Health Outreach',
  'Supporting free health screenings and awareness campaigns.',
- 'Ho', '2026-05-23');
+ 'Ho', '2027-06-23');
 
  SELECT * FROM project;
-
 
 -- ========================================
 -- Category Table
