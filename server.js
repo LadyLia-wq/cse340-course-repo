@@ -3,6 +3,8 @@ import path from 'path';
 import express from 'express';
 import { testConnection } from './src/models/db.js';
 import router from './src/routes.js';
+import session from 'express-session';
+import flash from './src/middleware/flash.js';
 
 // Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
@@ -10,16 +12,33 @@ const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 //Define the port number the server will listen on
 const PORT = process.env.PORT || 3000;
 
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+
+//Allow Express to receive and process common POST data
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Set ejs as the templating engine
 app.set('view engine', 'ejs');
 
 // Tell express where to find templates
 app.set('views', path.join(__dirname, 'src/views'));
+
+// Middleware for session management
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60 * 60 * 1000 } //session expires after 1 hour of inactivity
+}));
+
+//Use flash message middleware
+app.use(flash);
 
 //configure express middleware
 //serve static files from the public directory
