@@ -45,11 +45,15 @@
             <p>No categories assigned to this project.</p>
         <% } %>
 
-        <p>
+        <div class="button-group">
+            <a class="btn" href="/edit-project/<%= project.project_id %>">
+                Edit Project
+            </a>
+
             <a class="btn" href="/assign-categories/<%= project.project_id %>">
                 Edit Categories
             </a>
-        </p>
+        </div>
     </section>
 </main>
 

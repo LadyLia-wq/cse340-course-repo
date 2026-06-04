@@ -4,7 +4,8 @@ import {
     getUpcomingProjects,
     getProjectDetails,
     getProjectCategories,
-    createProject
+    createProject,
+    updateProject
 } from '../models/projects.js';
 
 import {getAllOrganizations} from '../models/organizations.js';
@@ -23,7 +24,7 @@ const projectValidation = [
         .trim()
         .notEmpty().withMessage('Location is required')
         .isLength({ max: 200 }).withMessage('Location must be less than 200 characters'),
-    body('date')
+    body('project_date')
         .notEmpty().withMessage('Date is required')
         .isISO8601().withMessage('Date must be a valid date format'),
     body('organizationId')
@@ -66,7 +67,7 @@ const showNewProjectForm = async (req, res) => {
     const title = 'Add New Service Project';
 
     res.render('new-project', { title, organizations });
-}
+};
 
 const processNewProjectForm = async (req, res) => {
     // Check for validation errors
@@ -94,7 +95,55 @@ const processNewProjectForm = async (req, res) => {
         console.error('Error creating new project:', error);
         req.flash('error', 'There was an error creating the service project.');
     }
-}
+};
+
+const showEditProjectForm = async (req, res) => {
+    const projectId = req.params.id;
+
+    const project = await getProjectDetails(projectId);
+    const organizations = await getAllOrganizations();
+    const title = 'Edit Project';
+
+    res.render('edit-project', {
+        title,
+        project,
+        organizations
+    });
+};
+
+const processEditProjectForm = async (req, res) => {
+    const projectId = req.params.id;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        errors.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+
+        return res.redirect(`/edit-project/${projectId}`);
+    }
+
+    const {
+        title,
+        description,
+        location,
+        project_date,
+        organizationId
+    } = req.body;
+
+    await updateProject(
+        projectId,
+        title,
+        description,
+        location,
+        project_date,
+        organizationId
+    );
+
+    req.flash('success', 'Service project updated successfully!');
+
+    res.redirect(`/project/${projectId}`);
+};
 
 // Export controller functions
 export {
@@ -102,5 +151,7 @@ export {
     showProjectDetailsPage,
     showNewProjectForm,
     processNewProjectForm,
+    showEditProjectForm,
+    processEditProjectForm,
     projectValidation
 };
