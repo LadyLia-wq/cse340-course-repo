@@ -46,13 +46,17 @@
         <% } %>
 
         <div class="button-group">
-            <a class="btn" href="/edit-project/<%= project.project_id %>">
-                Edit Project
-            </a>
+            <% if (user && user.role_name === 'admin') { %>
+                <a href="/edit-project/<%= project.project_id %>">
+                    Edit Project
+                </a>
+            <% } %>
 
-            <a class="btn" href="/assign-categories/<%= project.project_id %>">
-                Edit Categories
-            </a>
+            <% if (user && user.role_name === 'admin') { %>
+                <a href="/assign-categories/<%= project.project_id %>">
+                    Edit Project Categories
+                </a>
+            <% } %>
         </div>
     </section>
 </main>

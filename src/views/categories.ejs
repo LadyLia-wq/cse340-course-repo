@@ -4,9 +4,9 @@
     <h1><%= title %></h1>
     <h2>Explore our categories</h2>
 
-    <p>
+    <% if (user && user.role_name === 'admin') { %>
         <a href="/new-category">Add New Category</a>
-    </p>
+    <% } %>
 
     <ul>
         <% categories.forEach(category => { %>
@@ -15,9 +15,11 @@
                     <%= category.name %>
                 </a>
 
-                <a href="/edit-category/<%= category.category_id %>">
-                    Edit
-                </a>
+                <% if (user && user.role_name === 'admin') { %>
+                    <a href="/edit-category/<%= category.category_id %>">
+                        Edit Category
+                    </a>
+                <% } %>
             </li>
         <% }) %>
     </ul>
