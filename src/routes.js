@@ -8,6 +8,8 @@ import {
     processNewProjectForm,
     showEditProjectForm,
     processEditProjectForm,
+    processVolunteerSignup,
+    processVolunteerRemove,
     projectValidation
 } from './controllers/projects.js';
 
@@ -82,6 +84,10 @@ router.post('/new-project', requireRole('admin'), projectValidation, processNewP
 // Edit service project routes
 router.get('/edit-project/:id', requireRole('admin'), showEditProjectForm);
 router.post('/edit-project/:id', requireRole('admin'), projectValidation, processEditProjectForm);
+
+//project volunteer
+router.post('/project/:id/volunteer', requireLogin, processVolunteerSignup);
+router.post('/project/:id/remove-volunteer', requireLogin, processVolunteerRemove);
 
 //Assign categories route
 router.get('/assign-categories/:projectId', requireRole('admin'), showAssignCategoriesForm);
